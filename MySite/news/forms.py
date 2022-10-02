@@ -1,8 +1,12 @@
 from django import forms
-from .models import Category
+from .models import News
 
-class NewsForm(forms.Form):
-    title = forms.CharField(max_length=150)
-    content= forms.CharField()
-    is_publisher = forms.BooleanField()
-    category = forms.ModelChoiceField(queryset=Category.objects.all())
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = ['title', 'content', 'is_publisher', 'category']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+        }

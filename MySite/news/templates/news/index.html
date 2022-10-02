@@ -18,7 +18,12 @@
     <div class="card-body">
       <div class="media">
         {% if item.photo %}
-        <img src="{{ item.photo.url }}" align="left" width="250" class="mr-3" />
+        <img
+         src="{{ item.photo.url }}"
+         align="left"
+         width="250"
+         class="mr-3"
+        />
         {% else %}
         <img
           src="https://picsum.photos/200/250/?blur=2"

@@ -1,6 +1,6 @@
 from urllib import request
 from webbrowser import get
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import News, Category
 from .forms import NewsForm
@@ -28,7 +28,11 @@ def view_news(request, news_id):
 
 def add_news(request):
     if request.method == "POST":
-        pass
+        form = NewsForm(request.POST)
+        if form.is_valid():
+           # news = News.objects.create(**form.cleaned_data)
+            news = form.save()
+            return redirect(news)
     else:
         form = NewsForm()
     return render(request, 'news/add_news.html', {'form': form})
