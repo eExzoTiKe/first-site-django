@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import News, Category
 from .forms import NewsForm
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 
 class HomeNews(ListView):
@@ -36,6 +36,12 @@ class NewsByCategory(ListView):
         context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
         return context
 
+
+class ViewNews(DetailView):
+    model = News
+    context_object_name = 'news_item'
+    #template_name = 'news/news_detail.html'  
+    #pk_url_kwarg = 'news_id'
 
 # def index(request):
 #     news = News.objects.all()
