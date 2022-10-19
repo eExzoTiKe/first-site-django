@@ -5,3 +5,7 @@ body{
 .errorlist{
     color: red;
 }
+
+.img {
+    margin-right: 10px !important;
+}
