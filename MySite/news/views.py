@@ -4,7 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import News, Category
 from .forms import NewsForm
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 
 class HomeNews(ListView):
@@ -43,6 +44,12 @@ class ViewNews(DetailView):
     #template_name = 'news/news_detail.html'  
     #pk_url_kwarg = 'news_id'
 
+
+class CreateNews(CreateView):
+    form_class = NewsForm
+    template_name = 'news/add_news.html'
+    #success_url = reverse_lazy('home')    
+
 # def index(request):
 #     news = News.objects.all()
 #     context = {
@@ -58,10 +65,10 @@ def get_category(request, category_id):
     return render (request, 'news/index.html', {'news': news, 'category': category})
 
 
-def view_news(request, news_id):
-   # news_item = News.objects.get(pk=news_id)
-   news_item = get_object_or_404(News, pk=news_id)
-   return render(request, 'news/view_news.html', {"news_item": news_item})
+# def view_news(request, news_id):
+#    # news_item = News.objects.get(pk=news_id)
+#    news_item = get_object_or_404(News, pk=news_id)
+#    return render(request, 'news/view_news.html', {"news_item": news_item})
 
 def add_news(request):
     if request.method == "POST":
